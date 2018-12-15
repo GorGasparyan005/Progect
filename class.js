@@ -1,4 +1,4 @@
-class LivingCreature {
+module.exports = class LivingCreature {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
@@ -28,5 +28,19 @@ class LivingCreature {
             }
         }
         return found;
+    }
+    getRandomArr(array)
+    {
+        var random = Math.round(Math.random() * array.length);
+        var obj = array[random];
+
+        return obj;
+    }
+    getRandomNum(Max)
+    {
+        var random = Math.round(Math.random() * (Max-0+1)) + 0;
+        
+
+        return random;
     }
 }

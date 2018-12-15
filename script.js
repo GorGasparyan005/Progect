@@ -1,29 +1,3 @@
-var m=Math.round((Math.random()*20)+5)
-var n=Math.round((Math.random()*20)+5)
- var matrix=[]
- var side=10
- for(var y = 0; y < m; y++){
- 	matrix[y]=[]
-   for(var x = 0; x <n; x++){
-       
-
-
-      function getRandInt(max){
-return Math.round(Math.random()*Math.floor(max))
- 			
-			 
-      }
- 			
- 		matrix[y].push(getRandInt(6))	
-	
- 	}
- }console.log(matrix)
-
-
-
-
-
-
 
 
 
@@ -47,7 +21,7 @@ function setup() {
                 xotakerArr.push(xt)
             }
             else if (matrix[y][x] == 3) {
-                var gsh = new GishaTich(x, y)
+                var gsh = new Gishatich(x, y)
                 gishaTichArr.push(gsh)
             }
             else if (matrix[y][x] == 4) {
@@ -98,46 +72,33 @@ function draw() {
             */
         }
     }
-
-    for (var i in grassArr) {
-        grassArr[i].mult()
-    }
-
-
-    for (var i in xotakerArr) {
-        xotakerArr[i].eat()
-        xotakerArr[i].move()
-        xotakerArr[i].mult()
-        xotakerArr[i].die()
-    }
-    for (var i in gishaTichArr) {
-        gishaTichArr[i].eat()
-        gishaTichArr[i].move()
-        gishaTichArr[i].mult()
-        gishaTichArr[i].die()
-    }
-
-
-    for (var i in mardArr) {
-        mardArr[i].eatGrass()
-        mardArr[i].eatGishatich()
-        mardArr[i].eatXotaker()
-        mardArr[i].move()
-        mardArr[i].mult()
-        mardArr[i].die()
-    }
-
-    for (var i in AxtotumArr) {
-        AxtotumArr[i].eatGrass()
-        AxtotumArr[i].eatGishatich()
-        AxtotumArr[i].eatXotaker()
-        AxtotumArr[i].eatmard()
-        AxtotumArr[i].move()
-        AxtotumArr[i].mult()
-        AxtotumArr[i].die()
-    }
-
-
-    console.log(grassArr.length, xotakerArr.length, gishaTichArr.length, mardArr.length, AxtotumArr.length)
 }
+function main() {
+    var socket = io();
+    var chatDiv = document.getElementById('chat');
+    var input = document.getElementById('message');
+    var button = document.getElementById('submit');
+    var btDelete = document.getElementById('delete');
 
+    function handleSubmit(evt) {
+        var val = input.value;
+        if (val != "") {
+            socket.emit("send", val);
+        }
+    }
+
+    button.onclick = handleSubmit;
+    btDelete.onclick = Delete;
+
+    function handleMessage(msg) {
+        var p = document.createElement('p');
+        p.innerText = msg;
+        chatDiv.appendChild(p);
+        input.value = "";
+    }
+
+    socket.on('display', handleMessage);
+
+} // main closing bracket
+
+window.onload = main;

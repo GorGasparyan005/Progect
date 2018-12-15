@@ -1,10 +1,21 @@
-class Axtotum extends mard{
+var LivingCreature = require("./class.js")
+
+module.exports = class Axtotum extends LivingCreature{
     constructor(x, y) {
         super(x,y);
     }
 
     getNewDirections() {
-        super.getNewDirections();
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ]
     }
 
     chooseCell(character) {
@@ -13,27 +24,88 @@ class Axtotum extends mard{
     }
 
     mult() {
-        super.mult();
+        var empty = getRandomArr(this.chooseCell(0))
+        if (empty && this.energy > 10) {
+            var newX = empty[0]
+            var newY = empty[1]
+            matrix[newY][newX] = 3
+            var gsh = new GishaTich(newX, newY)
+            xotakerArr.push(gsh)
+        }
     }
 
     move() {
-        super.move();
+        var empty = getRandomArr(this.chooseCell(0))
+        this.energy--;
+        if (empty) {
+            var newX = empty[0]
+            var newY = empty[1]
+            matrix[newY][newX] = 3
+            matrix[this.y][this.x] = 0
+
+            this.x = newX
+            this.y = newY
+        }
     }
 
     eatGrass() {
-        super.eatGrass();
+        var food = getRandomArr(this.chooseCell(2))
+        if (food) {
+            var newX = food[0]
+            var newY = food[1]
+            matrix[newY][newX] = 3
+            matrix[this.y][this.x] = 0
+            for (var i in xotakerArr) {
+                if (xotakerArr[i].x == newX && xotakerArr[i].y == newY) {
+                    xotakerArr.splice(i, 1)
+                }
+            }
+
+            this.x = newX
+            this.y = newY
+            this.energy += 2
+        }
     }
 
-    eatXotaker() {
-        super.eatXotaker();
-    }
-
+    
     eatGishatich() {
-        super.eatGishatich();
-    }
+        var foodGishatic = getRandomArr(this.chooseCell(3));
+        if (foodGishatic) {
+            var newX = foodGishatic[0]
+            var newY = foodGishatic[1]
+            matrix[newY][newX] = 4
+            matrix[this.y][this.x] = 0
+            for (var i in gishaTichArr) {
+                if (gishaTichArr[i].x == newX && gishaTichArr[i].y == newY) {
+                    gishaTichArr.splice(i, 1)
+                }
+            }
 
+            this.x = newX
+            this.y = newY
+            this.energy += 2
+        }
+    }
+    eatXotaker() {
+        var foodXotaker = getRandomArr(this.chooseCell(2))
+        if (foodXotaker) {
+            var newX = foodXotaker[0]
+            var newY = foodXotaker[1]
+            matrix[newY][newX] = 4
+            matrix[this.y][this.x] = 0
+            for (var i in xotakerArr) {
+                if (xotakerArr[i].x == newX && xotakerArr[i].y == newY) {
+                    xotakerArr.splice(i, 1)
+                }
+            }
+
+            this.x = newX
+            this.y = newY
+            this.energy += 2
+        }
+    }
     eatmard() {
-        var foodMard = random(this.chooseCell(4))
+        var foodMard = getRandomArr(this.chooseCell(4))
         if (foodMard) {
             var newX = foodMard[0]
             var newY = foodMard[1]
@@ -53,6 +125,17 @@ class Axtotum extends mard{
 
 
     die() {
-        super.die();
+        if (this.energy <= 0) {
+            matrix[this.y][this.x] = 0
+            for (var i in gishaTichArr) {
+                if (gishaTichArr[i].x == this.x && gishaTichArr[i].y == this.y) {
+                    gishaTichArr.splice(i, 1)
+                }
+            }
+        }
     }
+
+
+
+    
 }

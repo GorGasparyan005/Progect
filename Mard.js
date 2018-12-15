@@ -1,29 +1,75 @@
-class mard extends GishaTich {
+var LivingCreature = require("./class.js")
+
+module.exports = class mard extends LivingCreature {
     constructor(x, y) {
         super(x, y);
     }
 
     getNewDirections() {
-        super.getNewDirections();
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ]
     }
 
     chooseCell(character) {
         return super.chooseCell(character);
+
     }
 
     mult() {
-        super.mult();
+        var empty = getrandom(this.chooseCell(0))
+        if (empty && this.energy > 10) {
+            var newX = empty[0]
+            var newY = empty[1]
+            matrix[newY][newX] = 3
+            var gsh = new GishaTich(newX, newY)
+            xotakerArr.push(gsh)
+        }
     }
 
     move() {
-        super.move();
+        var empty = getrandom(this.chooseCell(0))
+        this.energy--;
+        if (empty) {
+            var newX = empty[0]
+            var newY = empty[1]
+            matrix[newY][newX] = 3
+            matrix[this.y][this.x] = 0
+
+            this.x = newX
+            this.y = newY
+        }
     }
 
     eatGrass() {
-        super.eat();
+        var food = getrandom(this.chooseCell(2))
+        if (food) {
+            var newX = food[0]
+            var newY = food[1]
+            matrix[newY][newX] = 3
+            matrix[this.y][this.x] = 0
+            for (var i in xotakerArr) {
+                if (xotakerArr[i].x == newX && xotakerArr[i].y == newY) {
+                    xotakerArr.splice(i, 1)
+                }
+            }
+
+            this.x = newX
+            this.y = newY
+            this.energy += 2
+        }
     }
+
+    
     eatGishatich() {
-        var foodGishatic = random(this.chooseCell(3));
+        var foodGishatic = getrandom(this.chooseCell(3));
         if (foodGishatic) {
             var newX = foodGishatic[0]
             var newY = foodGishatic[1]
@@ -41,7 +87,7 @@ class mard extends GishaTich {
         }
     }
     eatXotaker() {
-        var foodXotaker = random(this.chooseCell(2))
+        var foodXotaker = getrandom(this.chooseCell(2))
         if (foodXotaker) {
             var newX = foodXotaker[0]
             var newY = foodXotaker[1]
@@ -58,10 +104,14 @@ class mard extends GishaTich {
             this.energy += 2
         }
     }
-
-
-
     die() {
-        super.die();
+        if (this.energy <= 0) {
+            matrix[this.y][this.x] = 0
+            for (var i in gishaTichArr) {
+                if (gishaTichArr[i].x == this.x && gishaTichArr[i].y == this.y) {
+                    gishaTichArr.splice(i, 1)
+                }
+            }
+        }
     }
 }

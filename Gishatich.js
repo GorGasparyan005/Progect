@@ -1,4 +1,6 @@
-class GishaTich extends LivingCreature {
+var LivingCreature = require("./class.js")
+
+module.exports = class GishaTich extends LivingCreature {
     constructor(x, y) {
         super(x, y);
     }
@@ -22,7 +24,7 @@ class GishaTich extends LivingCreature {
     }
 
     mult() {
-        var empty = random(this.chooseCell(0))
+        var empty = getrandom(this.chooseCell(0))
         if (empty && this.energy > 10) {
             var newX = empty[0]
             var newY = empty[1]
@@ -33,7 +35,7 @@ class GishaTich extends LivingCreature {
     }
 
     move() {
-        var empty = random(this.chooseCell(0))
+        var empty = getrandom(this.chooseCell(0))
         this.energy--;
         if (empty) {
             var newX = empty[0]
@@ -47,7 +49,7 @@ class GishaTich extends LivingCreature {
     }
 
     eat() {
-        var food = random(this.chooseCell(2))
+        var food = getrandom(this.chooseCell(2))
         if (food) {
             var newX = food[0]
             var newY = food[1]
