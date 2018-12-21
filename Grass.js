@@ -11,7 +11,7 @@ module.exports = class Grass extends LivingCreature {
     }
 
     mult() {
-        var empty = getrandom(this.chooseCell(0))
+        var empty = this.getRandomArr(this.chooseCell(0))
         this.multiply++
         if (empty && this.multiply > 3) {
             var newX = empty[0]

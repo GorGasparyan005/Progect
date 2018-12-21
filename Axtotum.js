@@ -24,7 +24,7 @@ module.exports = class Axtotum extends LivingCreature{
     }
 
     mult() {
-        var empty = getRandomArr(this.chooseCell(0))
+        var empty = this.getRandomArr(this.chooseCell(0))
         if (empty && this.energy > 10) {
             var newX = empty[0]
             var newY = empty[1]
@@ -35,7 +35,7 @@ module.exports = class Axtotum extends LivingCreature{
     }
 
     move() {
-        var empty = getRandomArr(this.chooseCell(0))
+        var empty = this.getRandomArr(this.chooseCell(0))
         this.energy--;
         if (empty) {
             var newX = empty[0]
@@ -49,7 +49,7 @@ module.exports = class Axtotum extends LivingCreature{
     }
 
     eatGrass() {
-        var food = getRandomArr(this.chooseCell(2))
+        var food = this.getRandomArr(this.chooseCell(2))
         if (food) {
             var newX = food[0]
             var newY = food[1]
@@ -69,7 +69,7 @@ module.exports = class Axtotum extends LivingCreature{
 
     
     eatGishatich() {
-        var foodGishatic = getRandomArr(this.chooseCell(3));
+        var foodGishatic = this.getRandomArr(this.chooseCell(3));
         if (foodGishatic) {
             var newX = foodGishatic[0]
             var newY = foodGishatic[1]
@@ -87,7 +87,7 @@ module.exports = class Axtotum extends LivingCreature{
         }
     }
     eatXotaker() {
-        var foodXotaker = getRandomArr(this.chooseCell(2))
+        var foodXotaker = this.getRandomArr(this.chooseCell(2))
         if (foodXotaker) {
             var newX = foodXotaker[0]
             var newY = foodXotaker[1]
@@ -105,7 +105,7 @@ module.exports = class Axtotum extends LivingCreature{
         }
     }
     eatmard() {
-        var foodMard = getRandomArr(this.chooseCell(4))
+        var foodMard = this.getRandomArr(this.chooseCell(4))
         if (foodMard) {
             var newX = foodMard[0]
             var newY = foodMard[1]

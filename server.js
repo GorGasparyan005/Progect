@@ -21,26 +21,39 @@ io.on('connection', function (socket) {
 });
 
 
-var m = Math.round((Math.random() * 20) + 5)
-var n = Math.round((Math.random() * 20) + 5)
-var matrix = []
+
+matrix = [50][50]
 function getRandInt(max) {
     return Math.round(Math.random() * Math.floor(max))
 }
-for (var y = 0; y < m; y++) {
-    matrix[y] = []
-    for (var x = 0; x < n; x++) {
-        matrix[y].push(getRandInt(6))
-    }
+function GetMatrix(w,h)
+{
+
+     var matrix = [];
+     for(var y = 0;y<h;y++)
+     {
+         matrix[y] = [];
+         for(var x = 0;x < w;x++)
+         {
+             var r = Math.floor(Math.random() * 100);
+             if(r<20)r = 0;
+             else if(r<65)r = 1;
+             else if(r< 90)r = 2;
+             else if(r<100)r = 3;
+             matrix[y][x] = r;
+         }
+     }
+     return matrix;
 }
+
 console.log(matrix)
 
 
-var grassArr = [];
-var xotakerArr = [];
-var gishaTichArr = [];
-var mardArr = [];
-var AxtotumArr = [];
+ grassArr = [];
+xotakerArr = [];
+gishaTichArr = [];
+ mardArr = [];
+AxtotumArr = [];
 
 var Grass = require("./Grass.js")
 var mard = require("./Mard.js")
@@ -57,7 +70,7 @@ function getrandom (max)
 {
    return Math.floor(Math.random() * max) 
 }
-
+matrix = GetMatrix(35,35)
 for (var y = 0; y < matrix.length; y++) {
     for (var x = 0; x < matrix[y].length; x++) {
         if (matrix[y][x] == 1) {

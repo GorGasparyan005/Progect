@@ -2,41 +2,11 @@
 
 
 
-var side = 50;
-var grassArr = [];
-var xotakerArr = [];
-var gishaTichArr = [];
-var mardArr = [];
-var AxtotumArr = [];
-
 function setup() {
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                var gr = new Grass(x, y)
-                grassArr.push(gr)
-            }
-            else if (matrix[y][x] == 2) {
-                var xt = new Xotaker(x, y)
-                xotakerArr.push(xt)
-            }
-            else if (matrix[y][x] == 3) {
-                var gsh = new Gishatich(x, y)
-                gishaTichArr.push(gsh)
-            }
-            else if (matrix[y][x] == 4) {
-                var mr = new mard(x, y)
-                mardArr.push(mr)
-            }
-            else if (matrix[y][x] == 5) {
-                var ax = new Axtotum(x, y)
-                AxtotumArr.push(ax)
-            }
-        }
-    }
+
 
     frameRate(2);
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(matrix[50] * side, matrix.length * side);
     background('#acacac');
 }
 
@@ -87,8 +57,7 @@ function main() {
         }
     }
 
-    button.onclick = handleSubmit;
-    btDelete.onclick = Delete;
+   
 
     function handleMessage(msg) {
         var p = document.createElement('p');
