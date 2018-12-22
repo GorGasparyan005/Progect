@@ -1,19 +1,27 @@
 
 
-
-
+var n = 25;
+var m = 25;
+var side = 25;
 function setup() {
 
 
     frameRate(2);
-    createCanvas(matrix[50] * side, matrix.length * side);
+    createCanvas(n * side, m * side);
     background('#acacac');
 }
 
 
+var Weather = "Winter";
 
 
-function draw() {
+
+
+
+
+
+
+function drawMatrix(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -50,24 +58,12 @@ function main() {
     var button = document.getElementById('submit');
     var btDelete = document.getElementById('delete');
 
-    function handleSubmit(evt) {
-        var val = input.value;
-        if (val != "") {
-            socket.emit("send", val);
-        }
-    }
 
-   
+    socket.on('CreateMatrix', drawMatrix);
 
-    function handleMessage(msg) {
-        var p = document.createElement('p');
-        p.innerText = msg;
-        chatDiv.appendChild(p);
-        input.value = "";
-    }
-
-    socket.on('display', handleMessage);
-
+    socket.on('Exanak', function (h) {
+        Weather = h;
+    });
 } // main closing bracket
 
 window.onload = main;

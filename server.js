@@ -1,3 +1,6 @@
+
+
+
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
@@ -20,39 +23,60 @@ io.on('connection', function (socket) {
     });
 });
 
+ weather = "Winter";
+ weatherIndex = 1;
 
+matrix = [50][50];
 
-matrix = [50][50]
 function getRandInt(max) {
     return Math.round(Math.random() * Math.floor(max))
 }
-function GetMatrix(w,h)
-{
+function GetMatrix(w, h) {
 
-     var matrix = [];
-     for(var y = 0;y<h;y++)
-     {
-         matrix[y] = [];
-         for(var x = 0;x < w;x++)
-         {
-             var r = Math.floor(Math.random() * 100);
-             if(r<20)r = 0;
-             else if(r<65)r = 1;
-             else if(r< 90)r = 2;
-             else if(r<100)r = 3;
-             matrix[y][x] = r;
-         }
-     }
-     return matrix;
+    var matrix = [];
+    for (var y = 0; y < h; y++) {
+        matrix[y] = [];
+        for (var x = 0; x < w; x++) {
+            var r = Math.floor(Math.random() * 100);
+            if (r < 20) r = 0;
+            else if (r < 65) r = 1;
+            else if (r < 90) r = 2;
+            else if (r < 100) r = 3;
+            matrix[y][x] = r;
+        }
+    }
+    return matrix;
 }
 
 console.log(matrix)
 
+function drowWeather(){
+    weatherIndex++;
+    if(weatherIndex == 5){
+        weatherIndex = 1;
+    }
+    else if(weatherIndex == 4){
+        weather = "Authum";
+    }
+    else if(weatherIndex == 3){
+        weather = "Summer";
+    }
+    else if(weatherIndex == 2){
+        weather = "Spring";
+    }
+    else if(weatherIndex == 1){
+        weather = "Wimter";
+    }
+    io.sockets.emit("Exanak", weather);
+}
 
- grassArr = [];
+
+
+
+grassArr = [];
 xotakerArr = [];
 gishaTichArr = [];
- mardArr = [];
+mardArr = [];
 AxtotumArr = [];
 
 var Grass = require("./Grass.js")
@@ -61,16 +85,14 @@ var Axtotum = require("./Axtotum.js")
 var Xotaker = require("./Xotaker.js")
 var Gishatich = require("./Gishatich.js")
 
-function random (max)
-{
-   return Math.round(Math.random() * max) 
+function random(max) {
+    return Math.round(Math.random() * max)
 }
 
-function getrandom (max)
-{
-   return Math.floor(Math.random() * max) 
+function getrandom(max) {
+    return Math.floor(Math.random() * max)
 }
-matrix = GetMatrix(35,35)
+matrix = GetMatrix(35, 35)
 for (var y = 0; y < matrix.length; y++) {
     for (var x = 0; x < matrix[y].length; x++) {
         if (matrix[y][x] == 1) {
@@ -136,8 +158,13 @@ function drawServerayin() {
         AxtotumArr[i].mult()
         AxtotumArr[i].die()
     }
+
+    io.sockets.emit("CreateMatrix", matrix);
+
 }
 
 
 
 
+io.on('connection', function (socket) {
+});
