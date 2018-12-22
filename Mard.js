@@ -17,17 +17,17 @@ module.exports = class mard extends LivingCreature {
             [this.x + 1, this.y + 1]
         ]
     }
-    Qanak = 0;
+    
     chooseCell(character) {
         return super.chooseCell(character);
 
     }
 
     mult() {
-          Qanak = 0;
+           
         var empty = getRa(this.chooseCell(0))
         if (empty && this.energy > 10) {
-            this.Qanak += 1;
+            this.QanakM += 1;
             var newX = empty[0]
             var newY = empty[1]
             matrix[newY][newX] = 3
@@ -35,7 +35,7 @@ module.exports = class mard extends LivingCreature {
             xotakerArr.push(gsh)
         }
       
-        return Qanak;
+        return QanakM;
     }
 
     move() {

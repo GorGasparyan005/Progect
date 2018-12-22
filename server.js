@@ -20,7 +20,11 @@ AxtotumArr = [];
 weather = "Winter";
 weatherIndex = 1;
  
-
+QanakG = 0;
+QanakM = 0;
+QanakA = 0;
+QanakGish = 0;
+QanakXotaker = 0;
 
 
 

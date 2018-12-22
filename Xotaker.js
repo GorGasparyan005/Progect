@@ -18,17 +18,17 @@ module.exports = class Xotaker extends LivingCreature {
             [this.x + 1, this.y + 1]
         ]
     }
-    Qanak = 0;
+    
     chooseCell(character) {
         return super.chooseCell(character);
 
     }
 
     mult() {
-        Qanak = 0;
+       
         var empty = this.getRandomArr(this.chooseCell(0))
         if (empty && this.energy > 10) {
-            this.Qanak += 1;
+            this.QanakXotaker += 1;
             var newX = empty[0]
             var newY = empty[1]
             matrix[newY][newX] = 2
@@ -36,7 +36,7 @@ module.exports = class Xotaker extends LivingCreature {
             xotakerArr.push(xt)
         }
         
-        return Qanak;
+        return QanakXotaker;
     }
 
     move() {
