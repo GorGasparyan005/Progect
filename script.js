@@ -1,25 +1,14 @@
-
-
+var socket = io();
 var n = 25;
 var m = 25;
 var side = 25;
+Weather = "Winter";
+
 function setup() {
-
-
     frameRate(2);
     createCanvas(n * side, m * side);
     background('#acacac');
 }
-
-
-var Weather = "Winter";
-
-
-
-
-
-
-
 
 function drawMatrix(matrix) {
     for (var y = 0; y < matrix.length; y++) {
@@ -40,7 +29,18 @@ function drawMatrix(matrix) {
                 fill("black");
             }
             else if (matrix[y][x] == 0) {
-                fill("#acacac");
+                if (Weather == "Winter") {
+                    fill("White");
+                }
+                else if (Weather == "Spring") {
+                    fill("#acacac");
+                }
+                else if (Weather == "Summer") {
+                    fill("#acacac");
+                }
+                else if (Weather == "Authum") {
+                    fill("Orange");
+                }
             }
 
             rect(x * side, y * side, side, side)
@@ -51,19 +51,17 @@ function drawMatrix(matrix) {
         }
     }
 }
-function main() {
-    var socket = io();
-    var chatDiv = document.getElementById('chat');
-    var input = document.getElementById('message');
-    var button = document.getElementById('submit');
-    var btDelete = document.getElementById('delete');
+
+socket.on('CreateMatrix', drawMatrix);
+socket.on('Exanak', weatherFunc);
+socket.on('Exanak', function (h) {
+    Weather = h;
+});
 
 
-    socket.on('CreateMatrix', drawMatrix);
+function weatherFunc() {
 
-    socket.on('Exanak', function (h) {
-        Weather = h;
-    });
-} // main closing bracket
+}
+console.log(Weather);
 
-window.onload = main;
+//window.onload = main;

@@ -1,12 +1,7 @@
-
-
-
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var messages = [];
-
 app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
@@ -14,17 +9,20 @@ app.get('/', function (req, res) {
 server.listen(3000);
 
 io.on('connection', function (socket) {
-    for (var i in messages) {
-        io.sockets.emit("display", messages[i]);
-    }
-    socket.on("send", function (data) {
-        messages.push(data);
-        io.sockets.emit("display message", data);
-    });
 });
 
- weather = "Winter";
- weatherIndex = 1;
+grassArr = [];
+xotakerArr = [];
+gishaTichArr = [];
+mardArr = [];
+AxtotumArr = [];
+
+weather = "Winter";
+weatherIndex = 1;
+ 
+
+
+
 
 matrix = [50][50];
 
@@ -47,37 +45,6 @@ function GetMatrix(w, h) {
     }
     return matrix;
 }
-
-console.log(matrix)
-
-function drowWeather(){
-    weatherIndex++;
-    if(weatherIndex == 5){
-        weatherIndex = 1;
-    }
-    else if(weatherIndex == 4){
-        weather = "Authum";
-    }
-    else if(weatherIndex == 3){
-        weather = "Summer";
-    }
-    else if(weatherIndex == 2){
-        weather = "Spring";
-    }
-    else if(weatherIndex == 1){
-        weather = "Wimter";
-    }
-    io.sockets.emit("Exanak", weather);
-}
-
-
-
-
-grassArr = [];
-xotakerArr = [];
-gishaTichArr = [];
-mardArr = [];
-AxtotumArr = [];
 
 var Grass = require("./Grass.js")
 var mard = require("./Mard.js")
@@ -122,7 +89,10 @@ setInterval(drawServerayin, 1000);
 
 function drawServerayin() {
     for (var i in grassArr) {
-        grassArr[i].mult()
+        grassArr[i].mult();
+       console.log(grassArr[i].mult());
+       
+        
     }
 
 
@@ -165,6 +135,27 @@ function drawServerayin() {
 
 
 
+function drowWeather(){
 
-io.on('connection', function (socket) {
-});
+
+    if(weatherIndex == 4){
+        weather = "Authum";
+    }
+    else if(weatherIndex == 3){
+        weather = "Summer";
+    }
+    else if(weatherIndex == 2){
+        weather = "Spring";
+    }
+    else if(weatherIndex == 1){
+        weather = "Winter";
+    }
+    if(weatherIndex == 5){
+        weatherIndex = 1;
+        weather = "Winter";
+    }
+    weatherIndex++;
+    console.log(weather);
+    io.sockets.emit("Exanak", weather);
+}
+setInterval(drowWeather, 1000);
