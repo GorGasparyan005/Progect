@@ -27,6 +27,7 @@ module.exports = class mard extends LivingCreature {
            
         var empty = getRa(this.chooseCell(0))
         if (empty && this.energy > 10) {
+            Kerpar1init++
             this.QanakM += 1;
             var newX = empty[0]
             var newY = empty[1]

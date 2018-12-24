@@ -27,7 +27,7 @@ module.exports = class Axtotum extends LivingCreature{
         
         var empty = this.getRandomArr(this.chooseCell(0))
         if (empty && this.energy > 10) {
-            this.QanakA += 1;
+            
             var newX = empty[0]
             var newY = empty[1]
             matrix[newY][newX] = 3
@@ -35,7 +35,7 @@ module.exports = class Axtotum extends LivingCreature{
             xotakerArr.push(gsh)
         }
         
-        return QanakA;
+        
     }
 
     move() {

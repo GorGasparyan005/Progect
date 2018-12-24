@@ -28,6 +28,7 @@ module.exports = class Xotaker extends LivingCreature {
        
         var empty = this.getRandomArr(this.chooseCell(0))
         if (empty && this.energy > 10) {
+            Xotakerinit++
             this.QanakXotaker += 1;
             var newX = empty[0]
             var newY = empty[1]

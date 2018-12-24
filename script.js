@@ -4,6 +4,10 @@ var m = 25;
 var side = 25;
 Weather = "Winter";
 
+
+
+
+
 function setup() {
     frameRate(2);
     createCanvas(n * side, m * side);
@@ -53,6 +57,7 @@ function drawMatrix(matrix) {
 }
 
 socket.on('CreateMatrix', drawMatrix);
+
 socket.on('Exanak', weatherFunc);
 socket.on('Exanak', function (h) {
     Weather = h;

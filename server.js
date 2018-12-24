@@ -19,13 +19,15 @@ AxtotumArr = [];
 
 weather = "Winter";
 weatherIndex = 1;
+var fs = require('fs');
  
 QanakG = 0;
 QanakM = 0;
 QanakA = 0;
 QanakGish = 0;
 QanakXotaker = 0;
-
+Kerpar1init = 0;
+Xotakerinit = 0;
 
 
 matrix = [50][50];
@@ -94,7 +96,7 @@ setInterval(drawServerayin, 1000);
 function drawServerayin() {
     for (var i in grassArr) {
         grassArr[i].mult();
-       console.log(grassArr[i].mult());
+       
        
         
     }
@@ -162,4 +164,22 @@ function drowWeather(){
     console.log(weather);
     io.sockets.emit("Exanak", weather);
 }
+
+statistics = {"smthg":[]};
+
+
+setInterval(function(){
+    statistics.smthg.push({
+        "Kerpar1_Born": Kerpar1init,
+        "Xotaker_Born": Xotakerinit,
+    })
+
+fs.writeFile("statistics.json", JSON.stringify(statistics),function(err) {
+    if (err) throw err;
+})
+},13000);
+
+
+
+
 setInterval(drowWeather, 1000);
